@@ -11,7 +11,7 @@ Docfriends with Vue.js(Vue 3)
 
 ## Getting started
 
-`$git clone https://github.com/eunjitech/Docfriends_Front_Recruit.git` <br>
+`git clone https://github.com/eunjitech/Docfriends_Front_Recruit.git` <br>
 `npm install`<br><br>
 `npm run serve`
 

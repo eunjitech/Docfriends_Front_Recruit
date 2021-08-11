@@ -1,5 +1,5 @@
 <template>
-  <div id="header">Header</div>
+  <div id="header"><img src="../assets/logo.png" alt="logo" /></div>
 </template>
 
 <script>
