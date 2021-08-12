@@ -89,18 +89,20 @@ export default {
 }
 .carousel-inner {
   max-width: 590px;
+  /* height: 400px;  */
   width: 100%;
   margin: 0 auto;
 }
 .carousel-inner > .carousel-item > img {
   max-width: 590px !important;
-  /* max-height: 350px !important; */
 }
 .carousel-indicators {
   bottom: -50px;
 }
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
-  filter: drop-shadow(1px 1px 2px rgb(0 0 0));
+  filter: drop-shadow(0px 0px 4px rgb(0 0 0));
+  width: 5rem;
+  height: 5em;
 }
 </style>
