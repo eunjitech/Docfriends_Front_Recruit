@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>닥프렌즈 병원</h1>
-    <div id="content">
+    <div id="main">
       <Slide />
       <!-- 탭 메뉴 -->
       <div class="tap_menu">
@@ -21,6 +21,7 @@
         <div>
           <h3>주소</h3>
           <span>서울 특별시</span>
+          <div id="map" ref="map"></div>
         </div>
       </div>
       <!-- 소속 전문가 -->
@@ -31,17 +32,43 @@
 
 <script>
 import Slide from "../components/Slide.vue";
+import { Loader } from "@googlemaps/js-api-loader";
 
 export default {
   name: "Home",
   components: { Slide },
+
+  methods: {
+    getMap() {
+      const currentPostiion = {
+        lat: Number(37.126019),
+        lng: Number(126.916331),
+      };
+      const loader = new Loader({
+        apiKey: process.env.VUE_APP_KEY,
+      });
+      loader.load().then(() => {
+        const googleMap = new google.maps.Map(this.$refs.map, {
+          center: currentPostiion,
+          zoom: 17,
+          zoomControl: false,
+        });
+        new google.maps.Marker({
+          position: currentPostiion,
+          map: googleMap,
+        });
+      });
+    },
+  },
+  mounted() {
+    this.getMap();
+  },
 };
 </script>
 
 <style>
-#content {
+#main {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -95,5 +122,9 @@ h3 {
 #company ul li {
   margin-right: 10px;
   color: #a1a1a1;
+}
+
+#map {
+  height: 750px;
 }
 </style>
