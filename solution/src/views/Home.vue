@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>닥프렌즈 병원</h1>
+    <h1>haha</h1>
     <div id="main">
       <Slide />
       <!-- 탭 메뉴 -->
@@ -33,12 +33,29 @@
 <script>
 import Slide from "../components/Slide.vue";
 import { Loader } from "@googlemaps/js-api-loader";
+import axios from "axios";
 
 export default {
   name: "Home",
   components: { Slide },
-
+  data() {
+    return {
+      companyInfo: Object,
+      expertInfo: Array,
+      detailInfo: Object,
+    };
+  },
   methods: {
+    created() {
+      this.getCompanyData();
+      this.getExpertData();
+      this.getDetailData();
+    },
+    mounted() {
+      this.getMap();
+    },
+
+    //google map 가져오기
     getMap() {
       const currentPostiion = {
         lat: Number(37.126019),
@@ -52,6 +69,7 @@ export default {
           center: currentPostiion,
           zoom: 17,
           zoomControl: false,
+          streetViewControl: false,
         });
         new google.maps.Marker({
           position: currentPostiion,
@@ -59,9 +77,51 @@ export default {
         });
       });
     },
-  },
-  mounted() {
-    this.getMap();
+
+    //company data 가져오기
+    getCompanyData() {
+      const companyUrl =
+        "https://docfriends.github.io/Docfriends_Front_Recruit/api/company.json";
+      axios
+        .get(companyUrl)
+        .then((res) => {
+          console.log("company: ", res.data.data);
+          this.companyInfo = res.data.data;
+        })
+        .catch((error) => {
+          console.log("❌ Company data is not fetched. error : ", error);
+        });
+    },
+
+    //exper data 가져오기
+    getExpertData() {
+      const expertUrl =
+        "https://docfriends.github.io/Docfriends_Front_Recruit/api/companyExpert.json";
+      axios
+        .get(expertUrl)
+        .then((res) => {
+          console.log("expert: ", res.data.data.expertList);
+          this.expertInfo = res.data.data.expertList;
+        })
+        .catch((error) => {
+          console.log("❌ Expert data is not fetched. error : ", error);
+        });
+    },
+
+    //detail data 가져오기
+    getDetailData() {
+      const detailUrl =
+        "https://docfriends.github.io/Docfriends_Front_Recruit/api/expert.json";
+      axios
+        .get(detailUrl)
+        .then((res) => {
+          console.log("datail: ", res.data.data);
+          this.detailInfo = res.data.data;
+        })
+        .catch((error) => {
+          console.log("❌ Detail data is not fetched. error : ", error);
+        });
+    },
   },
 };
 </script>
