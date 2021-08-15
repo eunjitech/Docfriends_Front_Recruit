@@ -3,14 +3,24 @@
     <div>
       <h3>알림 키워드</h3>
       <ul>
-        <li>#한방소아청소년과</li>
+        <li v-for="list in companyInfo.alarmKeywordList" :key="list">
+          #{{ list }}
+        </li>
       </ul>
     </div>
-    <div><h3>병원 홈페이지</h3></div>
-    <div><h3>병원 전화번호</h3></div>
+    <div>
+      <h3>병원 홈페이지</h3>
+      <a :href="companyInfo.homepageUrl" target="_blank">{{
+        companyInfo.homepageUrl
+      }}</a>
+    </div>
+    <div>
+      <h3>병원 전화번호</h3>
+      <a :href="'tel:' + companyInfo.tel" ref="telNum">{{ companyInfo.tel }}</a>
+    </div>
     <div>
       <h3>주소</h3>
-      <span>서울 특별시</span>
+      <span>{{ companyInfo.addrRoad + " " + companyInfo.addrEtc }}</span>
       <div id="map" ref="map"></div>
     </div>
   </div>
@@ -21,6 +31,7 @@ import { Loader } from "@googlemaps/js-api-loader";
 
 export default {
   name: "Companye",
+  props: { companyInfo: Array },
   mounted() {
     this.getMap();
   },

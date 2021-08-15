@@ -1,23 +1,22 @@
 <template>
   <div>
-    <h1>닥프렌즈</h1>
+    <h1>{{ companyInfo.name }}</h1>
     <div id="main">
-      <Slide />
+      <Slide :companyInfo="companyInfo" />
       <!-- 탭 메뉴 -->
       <div class="tab_menu">
         <button @click="companyBtn">소속 정보</button>
         <button @click="expertBtn">소속 전문가</button>
       </div>
       <!-- 소속 정보 -->
-      <Company v-if="companyExpert === true" />
+      <Company v-if="companyExpert === true" :companyInfo="companyInfo" />
       <!-- 소속 전문가 -->
-      <Expert v-else />
+      <Expert v-else :expertInfo="expertInfo" :companyInfo="companyInfo" />
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import Slide from "../components/Slide.vue";
 import Company from "../components/Company.vue";
 import Expert from "../components/Expert.vue";
@@ -26,65 +25,10 @@ export default {
   name: "Home",
   components: { Slide, Company, Expert },
   data() {
-    return {
-      companyInfo: Object,
-      expertInfo: Array,
-      detailInfo: Object,
-      companyExpert: true,
-    };
+    return { companyExpert: true };
   },
+  props: { companyInfo: Object, expertInfo: Object },
   methods: {
-    mounted() {
-      this.getCompanyData();
-      this.getExpertData();
-      this.getDetailData();
-    },
-
-    //company data 가져오기
-    getCompanyData() {
-      const companyUrl =
-        "https://docfriends.github.io/Docfriends_Front_Recruit/api/company.json";
-      axios
-        .get(companyUrl)
-        .then((res) => {
-          console.log("company: ", res.data.data);
-          this.companyInfo = res.data.data;
-        })
-        .catch((error) => {
-          console.log("❌ Company data is not fetched. error : ", error);
-        });
-    },
-
-    //exper data 가져오기
-    getExpertData() {
-      const expertUrl =
-        "https://docfriends.github.io/Docfriends_Front_Recruit/api/companyExpert.json";
-      axios
-        .get(expertUrl)
-        .then((res) => {
-          console.log("expert: ", res.data.data.expertList);
-          this.expertInfo = res.data.data.expertList;
-        })
-        .catch((error) => {
-          console.log("❌ Expert data is not fetched. error : ", error);
-        });
-    },
-
-    //detail data 가져오기
-    getDetailData() {
-      const detailUrl =
-        "https://docfriends.github.io/Docfriends_Front_Recruit/api/expert.json";
-      axios
-        .get(detailUrl)
-        .then((res) => {
-          console.log("datail: ", res.data.data);
-          this.detailInfo = res.data.data;
-        })
-        .catch((error) => {
-          console.log("❌ Detail data is not fetched. error : ", error);
-        });
-    },
-
     //tab button 기능
     companyBtn() {
       this.companyExpert = true;

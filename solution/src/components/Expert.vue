@@ -2,22 +2,31 @@
   <div id="expert">
     <ul>
       <li
-        v-for="(i, index) in 5"
-        :key="index"
+        v-for="(expertBox, i) in expertInfo.expertList"
+        :key="i"
         @click="
-          if (index === 0) {
+          if (i === 0) {
             detailBtn();
           }
         "
       >
-        <img
-          src="https://image.flaticon.com/icons/png/512/2307/2307756.png"
-          alt="dd"
-          width="140"
-        />
-        <span>김관호 의사님</span>
-        <span>닥프렌즈 병원</span>
-        <span>좋아요</span>
+        <div>
+          <img
+            :src="
+              expertBox.profileImgPath
+                ? expertBox.profileImgPath
+                : require(`@/assets/profile.png`)
+            "
+            :alt="expertBox.name"
+            :title="expertBox.name"
+            width="140"
+          />
+          <div :class="expertBox.alarmActivationState + '_active'"></div>
+        </div>
+
+        <span>{{ expertBox.name }} {{ expertBox.expertTypeName }}님</span>
+        <span>{{ companyInfo.name }}</span>
+        <span>♥︎ {{ expertBox.likeCnt }}</span>
       </li>
     </ul>
   </div>
@@ -25,15 +34,14 @@
 <script>
 export default {
   name: "Expert",
+  props: { expertInfo: Object, companyInfo: Object },
   methods: {
-    // detail 페이지 링크 기능
+    // detail 페이지 라우터 연결
     detailBtn() {
       this.$router.push("/detail");
     },
   },
 };
-
-//525, 485
 </script>
 <style>
 #expert {

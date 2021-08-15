@@ -6,47 +6,24 @@
   >
     <div class="carousel-indicators">
       <button
+        v-for="(image, i) in companyInfo.imagePathList"
+        :key="i"
+        :class="{ active: i == 0 }"
+        :aria-current="{ true: i == 0 }"
         type="button"
         data-bs-target="#carouselExampleIndicators"
-        data-bs-slide-to="0"
-        class="active"
-        aria-current="true"
-        aria-label="Slide 1"
-      ></button>
-      <button
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide-to="1"
-        aria-label="Slide 2"
-      ></button>
-      <button
-        type="button"
-        data-bs-target="#carouselExampleIndicators"
-        data-bs-slide-to="2"
-        aria-label="Slide 3"
+        :data-bs-slide-to="i"
+        :aria-label="'Slide ' + (i + 1)"
       ></button>
     </div>
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img
-          src="https://cdn.pixabay.com/photo/2021/07/14/09/14/siberian-cat-6465485_1280.jpg"
-          class="d-block w-100"
-          alt="..."
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://cdn.pixabay.com/photo/2021/07/20/18/19/bald-eagle-6481346_1280.jpg"
-          class="d-block w-100"
-          alt="..."
-        />
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://cdn.pixabay.com/photo/2021/08/07/00/30/dog-6527479_1280.jpg"
-          class="d-block w-100"
-          alt="..."
-        />
+      <div
+        class="carousel-item"
+        :class="{ active: i == 0 }"
+        v-for="(image, i) in companyInfo.imagePathList"
+        :key="image"
+      >
+        <img :src="image" class="d-block w-100" alt="..." />
       </div>
     </div>
     <button
@@ -72,6 +49,7 @@
 <script>
 export default {
   name: "Slide",
+  props: { companyInfo: Object },
 };
 </script>
 <style>
