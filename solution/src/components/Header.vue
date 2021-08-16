@@ -1,8 +1,10 @@
 <template>
   <div id="header">
-    <a href="/">
-      <img src="../assets/logo.png" alt="logo" class="logo" />
-    </a>
+    <div class="header__container">
+      <a href="/">
+        <img src="../assets/logo.png" alt="logo" class="logo" />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -20,8 +22,11 @@ export default {
   display: flex;
   align-items: center;
 }
+.header__container {
+  width: 1024px;
+  margin: 0 auto;
+}
 .logo {
-  width: 170px;
-  margin-left: 20px;
+  width: 130px;
 }
 </style>

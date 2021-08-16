@@ -5,8 +5,20 @@
       <Slide :companyInfo="companyInfo" />
       <!-- 탭 메뉴 -->
       <div class="tab_menu">
-        <button @click="companyBtn">소속 정보</button>
-        <button @click="expertBtn">소속 전문가</button>
+        <button
+          :class="{ colorOn: this.companyExpert }"
+          @click="companyBtn"
+          class="button"
+        >
+          소속 정보
+        </button>
+        <button
+          :class="{ colorOn: this.companyExpert === false }"
+          @click="expertBtn"
+          class="button"
+        >
+          소속 전문가
+        </button>
       </div>
       <!-- 소속 정보 -->
       <Company v-if="companyExpert === true" :companyInfo="companyInfo" />
@@ -48,32 +60,36 @@ export default {
 }
 h1 {
   text-align: center;
-  font-size: calc(1rem + 1.5vw);
+  font-size: calc(1rem + 1vw);
   font-weight: 700;
-  margin: calc(1em + 6vw);
+  margin: calc(1em + 1vw);
+}
+a {
+  text-decoration: none;
+  color: #12ab00;
 }
 /* ----------------Tap menu---------------- */
 .tab_menu {
-  margin-top: 100px;
+  margin-top: 55px;
   margin-bottom: 30px;
   text-align: center;
 }
-.tab_menu button {
-  width: 370px;
+.button {
+  width: 310px;
   margin: auto 10px 10px 10px;
-  padding: 30px;
+  padding: 23px;
   font-size: 1.4rem;
+  color: #a1a1a1;
   border: 2px solid #dedede;
   border-radius: 65px;
-  color: #a1a1a1;
   transition: all 0.3s;
 }
-.tab_menu button:hover {
-  border: 2px solid #12ab00;
+.button:hover {
+  border-color: #12ab00;
   color: #12ab00;
 }
-
-h3 {
-  font-weight: 600;
+.colorOn {
+  border-color: #12ab00;
+  color: #12ab00;
 }
 </style>

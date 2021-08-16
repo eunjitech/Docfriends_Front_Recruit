@@ -30,8 +30,14 @@
 import { Loader } from "@googlemaps/js-api-loader";
 
 export default {
-  name: "Companye",
-  props: { companyInfo: Array },
+  name: "Company",
+  props: { companyInfo: Object },
+  watch: {
+    companyInfo() {
+      this.getMap();
+      this.addHyphen();
+    },
+  },
   mounted() {
     this.getMap();
   },
@@ -39,8 +45,8 @@ export default {
     //google map 가져오기
     getMap() {
       const currentPostiion = {
-        lat: Number(37.126019),
-        lng: Number(126.916331),
+        lat: Number(this.companyInfo.lat),
+        lng: Number(this.companyInfo.lon),
       };
       const loader = new Loader({
         apiKey: process.env.VUE_APP_KEY,
@@ -58,20 +64,32 @@ export default {
         });
       });
     },
+    //전화번호에 하이픈 넣기
+    addHyphen() {
+      this.companyInfo.tel = this.companyInfo.tel.replace(
+        /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,
+        "$1-$2-$3"
+      );
+    },
   },
 };
 </script>
 <style>
+h3 {
+  font-size: calc(0.9rem + 1vw);
+  font-weight: 600;
+}
+
 #company {
   width: 90%;
-  max-width: 1330px;
-  text-align: left;
+  max-width: 1024px;
+  margin-bottom: 200px;
   padding: 60px;
+  text-align: left;
   border: 2px solid #dedede;
 }
 #company > div {
-  margin-bottom: 85px;
-  line-height: 35px;
+  margin-bottom: 53px;
 }
 
 #company ul {
@@ -84,6 +102,7 @@ export default {
 }
 
 #map {
-  height: 750px;
+  height: 530px;
+  top: 10px;
 }
 </style>

@@ -1,18 +1,23 @@
 <template>
   <div id="detail">
-    <div>
-      <img
-        :src="detailInfo.profileImgPath"
-        :alt="detailInfo.name"
-        :title="detailInfo.name"
-        width="140"
-      />
-      <div :class="detailInfo.alarmActivationState + '_active'"></div>
+    <div class="profile">
+      <div class="profile__mask">
+        <img
+          :src="detailInfo.profileImgPath"
+          :alt="detailInfo.name"
+          :title="detailInfo.name"
+        />
+        <div
+          :class="detailInfo.alarmActivationState + '_active'"
+          class="alarmState"
+        ></div>
+      </div>
+      <span class="profile__name"
+        >{{ detailInfo.name }} {{ detailInfo.expertTypeName }}님</span
+      >
+      <span class="profile__like">♥︎ {{ detailInfo.likeCnt }}</span>
     </div>
-
-    <span>{{ detailInfo.name }} {{ detailInfo.expertTypeName }}님</span>
-    <span>♥︎ {{ detailInfo.likeCnt }}</span>
-    <div class="detailBox">
+    <div class="detail__box">
       <div>
         <h3>학력 및 자격면허</h3>
         <span v-html="detailInfo.ability"></span>
@@ -39,7 +44,7 @@
         ><span>{{ detailInfo.companyAddr }}{{ detailInfo.AddrEtc }}</span>
       </div>
     </div>
-    <button @click="goHome">닥프렌즈 병원 바로가기 ></button>
+    <button @click="goHome" class="button">닥프렌즈 병원 바로가기 ></button>
   </div>
 </template>
 
@@ -64,15 +69,14 @@ export default {
       axios
         .get(detailUrl)
         .then((res) => {
-          console.log("datail: ", res.data.data);
           this.detailInfo = res.data.data;
           this.detailInfo.ability = this.detailInfo.ability.replace(
             /\n/g,
-            "<br />"
+            "<br>"
           );
           this.detailInfo.career = this.detailInfo.career.replace(
             /\n/g,
-            "<br />"
+            "<br>"
           );
         })
         .catch((error) => {
@@ -91,13 +95,52 @@ export default {
 <style>
 #detail {
   text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  margin-top: 30px;
 }
-#detail .detailBox {
+#detail .profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+#detail .profile .N_active {
+  position: absolute;
+  right: 9px;
+  top: 88px;
+}
+#detail span {
+  color: #565656;
+}
+
+#detail ul {
+  color: #565656;
+  padding-left: 0;
+  display: flex;
+}
+#detail ul li {
+  color: #a1a1a1;
+  margin-right: 10px;
+}
+
+#detail .profile__like {
+  color: #ff7d00;
+}
+.detail__box {
   width: 90%;
   max-width: 1330px;
   text-align: left;
   padding: 60px;
   border: 2px solid #dedede;
   margin: 0 auto;
+}
+.detail__box div {
+  margin-bottom: 30px;
+}
+.detail__box div h3 {
+  margin-bottom: 10px;
 }
 </style>

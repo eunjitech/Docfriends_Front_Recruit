@@ -54,11 +54,13 @@ export default {
 </script>
 <style>
 .carousel {
-  width: 100%;
+  width: 90%;
+  max-width: 1050px;
 }
 .carousel-indicators [data-bs-target] {
-  width: 23px;
-
+  width: 13px;
+  height: 13px;
+  border: 0;
   border-radius: 100%;
   background: #dedede;
 }
@@ -66,21 +68,25 @@ export default {
   background: #12ab00;
 }
 .carousel-inner {
-  max-width: 590px;
+  max-width: 530px;
+
   /* height: 400px;  */
   width: 100%;
   margin: 0 auto;
 }
+.carousel-inner > .carousel-item {
+  height: 300px;
+}
 .carousel-inner > .carousel-item > img {
-  max-width: 590px !important;
+  max-width: 530px !important;
 }
 .carousel-indicators {
-  bottom: -50px;
+  bottom: -40px;
 }
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
-  filter: drop-shadow(0px 0px 4px rgb(0 0 0));
-  width: 5rem;
-  height: 5em;
+  filter: drop-shadow(0px 0px 2px rgb(0 0 0));
+  width: 3rem;
+  height: 3rem;
 }
 </style>

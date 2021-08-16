@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="loaded">
     <Header />
     <router-view :companyInfo="companyInfo" :expertInfo="expertInfo" />
   </div>
@@ -18,6 +18,7 @@ export default {
     return {
       companyInfo: Object,
       expertInfo: Object,
+      loaded: false,
     };
   },
   mounted() {
@@ -32,12 +33,12 @@ export default {
       axios
         .get(companyUrl)
         .then((res) => {
-          console.log("company: ", res.data.data);
           this.companyInfo = res.data.data;
         })
         .catch((error) => {
           console.log("❌ Company data is not fetched. error : ", error);
         });
+      this.loaded = true;
     },
 
     //exper data 가져오기
@@ -47,7 +48,6 @@ export default {
       axios
         .get(expertUrl)
         .then((res) => {
-          console.log("expert: ", res.data.data);
           this.expertInfo = res.data.data;
         })
         .catch((error) => {
