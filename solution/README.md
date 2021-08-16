@@ -4,7 +4,7 @@ Docfriends with Vue.js(Vue 3)
 
 ## Preview
 
-<img src="../example/preview.png" width="400"/>
+<img src="./preview.png" width="400"/>
 
 ## Dev-environment
 
