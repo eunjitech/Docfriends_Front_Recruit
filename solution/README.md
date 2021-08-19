@@ -6,6 +6,8 @@ Docfriends with Vue.js(Vue 3)
 
 <img src="./preview.png" width="400"/>
 
+👉 [사이트 방문하기](https://eunjitech.github.io/test/)
+
 ## Dev-environment
 
 - OS : Mac
